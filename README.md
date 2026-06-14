@@ -32,6 +32,12 @@
 | **安全机制** | API Key 加密存储、命令白名单、代码沙箱、路径访问控制 |
 | **工作空间** | 每个会话独立工作目录，集群模式下支持共享与私有空间隔离 |
 
+## Demo / 演示
+
+| 智能体 / Agent | 工具和 MCP / Tools & MCP | 集群协作 / Cluster |
+|:---:|:---:|:---:|
+| ![Agent](docs/demo/智能体.gif) | ![Tools & MCP](docs/demo/工具和mcp.gif) | ![Cluster](docs/demo/智能体集群.gif) |
+
 ## Tech Stack / 技术栈
 
 | 层级 | 技术 |
