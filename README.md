@@ -11,52 +11,65 @@
 [![Vue](https://img.shields.io/badge/Vue-3.4%2B-42b883?logo=vue.js)](https://vuejs.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](#)
 
+[中文文档](README_CN.md)
+
 </div>
 
 ---
 
-一个桌面端 AI 智能体平台，支持多模型接入、工具调用、MCP 协议扩展和集群协作。可作为桌面应用运行（PyWebview），也可独立部署为 Web 服务。
+A desktop AI agent platform with multi-model integration, tool calling, MCP protocol extension, and cluster collaboration. Runs as a native desktop app (PyWebview) or as a standalone web server.
 
 ---
 
-## Features / 核心功能
+## ⚠️ Project Status
 
-| 功能 | 说明 |
-|------|------|
-| **智能体管理** | 创建、配置、对话，支持自定义系统提示、工具授权和模型绑定 |
-| **多模型接入** | OpenAI / Anthropic / DeepSeek / Ollama / 阿里云 / 自定义兼容 API |
-| **工具系统** | 内置文件读写、命令执行、HTTP 请求、计算器、搜索等工具，支持自定义插件扩展 |
-| **MCP 协议** | 接入 stdio / SSE 类型的 MCP 服务器，自动发现并注册远程工具 |
-| **集群协作** | 多智能体组成集群，共享工作空间，支持工作流编排和任务调度 |
-| **文件处理** | 支持文本、图片、PDF、Office 文档上传和内容提取，兼容多模态模型视觉识别 |
-| **安全机制** | API Key 加密存储、命令白名单、代码沙箱、路径访问控制 |
-| **工作空间** | 每个会话独立工作目录，集群模式下支持共享与私有空间隔离 |
+This is a **rapid prototype (MVP)** built in 2 days to validate the product concept of a desktop AI agent platform.  
+The architecture and interaction flows were independently designed; code implementation was AI-assisted with manual review for critical paths (security, permission boundaries, API key encryption).  
 
-## Demo / 演示
+**Known limitations**: edge-case handling, production hardening, and comprehensive testing are still in progress.  
+**Suitable for**: architecture reference, tech stack evaluation, and prototype demos.  
+**Not yet suitable for**: direct production deployment without further development.
 
-| 智能体 / Agent | 工具和 MCP / Tools & MCP | 集群协作 / Cluster |
+---
+
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Agent Management** | Create, configure, and chat with agents. Custom system prompts, tool authorization, and model binding. |
+| **Multi-Model Support** | OpenAI / Anthropic / DeepSeek / Ollama / Alibaba Cloud / Custom compatible APIs |
+| **Tool System** | Built-in file I/O, command execution, HTTP requests, calculator, search, and more. Custom plugin support. |
+| **MCP Protocol** | Connect to `stdio` and `sse` type MCP servers. Auto-discover and register remote tools. |
+| **Cluster Collaboration** | Multiple agents form a cluster with shared workspaces, workflow orchestration, and task scheduling. |
+| **File Processing** | Text, images, PDFs, and Office documents. Content extraction and multimodal vision support. |
+| **Security** | Encrypted API Key storage, command whitelist, code sandbox, path access control. |
+| **Workspace** | Per-session isolated working directories. Shared and private space isolation in cluster mode. |
+
+## Demo
+
+| Agent | Tools & MCP | Cluster |
 |:---:|:---:|:---:|
 | ![Agent](docs/demo/智能体.gif) | ![Tools & MCP](docs/demo/工具和mcp.gif) | ![Cluster](docs/demo/智能体集群.gif) |
 
-## Tech Stack / 技术栈
+## Tech Stack
 
-| 层级 | 技术 |
-|------|------|
+| Layer | Technology |
+|-------|------------|
 | Desktop Shell | PyWebview |
 | Backend | Python / FastAPI / Uvicorn / SQLAlchemy |
 | Database | SQLite (auto-migration) |
 | Frontend | Vue 3 / Vite / Tailwind CSS / Pinia |
 | Build | PyInstaller (Windows EXE) |
 
-## Quick Start / 快速开始
+## Quick Start
 
-### Prerequisites / 环境要求
+### Prerequisites
 
 - Python 3.10+
 - Node.js 18+
 - npm
 
-### Install / 安装依赖
+### Install Dependencies
 
 ```bash
 # Backend
@@ -66,27 +79,27 @@ pip install -r requirements.txt
 cd frontend && npm install
 ```
 
-### Run / 启动
+### Run
 
 ```bash
-# 方式一：启动桌面应用（推荐）/ Desktop app (Recommended)
+# Desktop app (Recommended)
 python main.py
 
-# 方式二：仅启动后端 API / Backend API only
+# Backend API only
 python -m uvicorn backend.main:app --reload --port 8000
 
-# 方式三：启动前端开发服务器 / Frontend dev server
+# Frontend dev server
 cd frontend && npm run dev
 ```
 
-### Build / 构建可执行文件
+### Build Executable
 
 ```bash
 build_exe.bat
 # Output: dist/AI Agent.exe
 ```
 
-## Environment Variables / 环境变量
+## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -95,7 +108,7 @@ build_exe.bat
 | `FRONTEND_URL` | Frontend dev server URL | Empty (use built-in static) |
 | `API_VERSION` | API version prefix | `v1` |
 
-## Project Structure / 项目结构
+## Project Structure
 
 ```
 ai-agent-platform/
@@ -132,7 +145,7 @@ ai-agent-platform/
 └── data/                    # Runtime data (gitignored)
 ```
 
-## Custom Tools / 自定义工具
+## Custom Tools
 
 Create Python files in `tools_custom/` and register with `@registry.register()`:
 
@@ -152,11 +165,11 @@ def my_tool(param1: str, param2: int = 0) -> str:
 
 Tools are auto-loaded on startup.
 
-## MCP Servers / MCP 服务器
+## MCP Servers
 
 Add MCP servers via the management UI (supports `stdio` and `sse` types). Once enabled, tools are auto-discovered and registered with prefix `mcp_{server_name}_{tool_name}`.
 
-## Data Storage / 数据存储
+## Data Storage
 
 | Path | Description |
 |------|-------------|
